@@ -14,9 +14,7 @@ class TestAddContact(unittest.TestCase):
 
     def test_add_contact(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.open_contacts_page(wd)
         self.create_contact(wd, Contact(first_name="FirstName", middle_name="MiddleName", last_name="LastName", nick_name="NickName", title="Title", company="Company", address="Address",
                             home_telephone="HomeTelephone", mobile_telephone="MobileTelephone", work_telephone="WorkTelephone", fax="Fax", e_mail="E-mail", e_mail2="E-Mail2", e_mail3="E-mail3",
                             homepage="Homepage", bday="10", bmonth="March", byear="1990", aday="10", amonth="March", ayear="1999", secondary_address="SecondaryAddress",
@@ -26,9 +24,7 @@ class TestAddContact(unittest.TestCase):
 
     def test_add_empty_contact(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.open_contacts_page(wd)
         self.create_contact(wd, Contact(first_name="", middle_name="", last_name="", nick_name="", title="", company="", address="",
                             home_telephone="", mobile_telephone="", work_telephone="", fax="", e_mail="", e_mail2="", e_mail3="",
                             homepage="", bday="-", bmonth="-", byear="", aday="-", amonth="-", ayear="", secondary_address="",
@@ -40,6 +36,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_link_text("Logout").click()
 
     def create_contact(self, wd, contact):
+        self.open_contacts_page(wd)
         # fill contact form
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -124,6 +121,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_link_text("add new").click()
 
     def login(self, wd, username, password):
+        self.open_home_page(wd)
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
