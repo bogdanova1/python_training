@@ -13,30 +13,30 @@ class TestAddContact(unittest.TestCase):
 
 
     def test_add_contact(self):
-        wd = self.wd
-        self.login(wd, username="admin", password="secret")
-        self.create_contact(wd, Contact(first_name="FirstName", middle_name="MiddleName", last_name="LastName", nick_name="NickName", title="Title", company="Company", address="Address",
+        self.login(username="admin", password="secret")
+        self.create_contact(Contact(first_name="FirstName", middle_name="MiddleName", last_name="LastName", nick_name="NickName", title="Title", company="Company", address="Address",
                             home_telephone="HomeTelephone", mobile_telephone="MobileTelephone", work_telephone="WorkTelephone", fax="Fax", e_mail="E-mail", e_mail2="E-Mail2", e_mail3="E-mail3",
                             homepage="Homepage", bday="10", bmonth="March", byear="1990", aday="10", amonth="March", ayear="1999", secondary_address="SecondaryAddress",
                             secondary_home="SecondaryHome", secondary_notes="SecondaryNotes"))
-        self.logout(wd)
+        self.logout()
 
 
     def test_add_empty_contact(self):
-        wd = self.wd
-        self.login(wd, username="admin", password="secret")
-        self.create_contact(wd, Contact(first_name="", middle_name="", last_name="", nick_name="", title="", company="", address="",
+        self.login(username="admin", password="secret")
+        self.create_contact(Contact(first_name="", middle_name="", last_name="", nick_name="", title="", company="", address="",
                             home_telephone="", mobile_telephone="", work_telephone="", fax="", e_mail="", e_mail2="", e_mail3="",
                             homepage="", bday="-", bmonth="-", byear="", aday="-", amonth="-", ayear="", secondary_address="",
                             secondary_home="", secondary_notes=""))
-        self.logout(wd)
+        self.logout()
 
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def create_contact(self, wd, contact):
-        self.open_contacts_page(wd)
+    def create_contact(self, contact):
+        wd = self.wd
+        self.open_contacts_page()
         # fill contact form
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -117,11 +117,13 @@ class TestAddContact(unittest.TestCase):
         # submit contact creation
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
-    def open_contacts_page(self, wd):
+    def open_contacts_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("add new").click()
 
-    def login(self, wd, username, password):
-        self.open_home_page(wd)
+    def login(self, username, password):
+        wd = self.wd
+        self.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -131,7 +133,8 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         wd.get("http://localhost:8080/addressbook/group.php")
 
     def is_element_present(self, how, what):
@@ -140,7 +143,7 @@ class TestAddContact(unittest.TestCase):
         return True
     
     def is_alert_present(self):
-        try: self.wd.switch_to_alert()
+        try: self.wd.switch_to().alert
         except NoAlertPresentException as e: return False
         return True
     
