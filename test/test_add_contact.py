@@ -4,10 +4,10 @@ from model.contact import Contact
 
 def test_add_contact(app):
     app.session.login(username="admin", password="secret")
-    app.contact.create(Contact(first_name="FirstName", middle_name="MiddleName", last_name="LastName", nick_name="NickName", title="Title", company="Company", address="Address",
-                               home_telephone="HomeTelephone", mobile_telephone="MobileTelephone", work_telephone="WorkTelephone", fax="Fax", e_mail="E-mail", e_mail2="E-Mail2", e_mail3="E-mail3",
-                               homepage="Homepage", bday="10", bmonth="March", byear="1990", aday="10", amonth="March", ayear="1999", secondary_address="SecondaryAddress",
-                               secondary_home="SecondaryHome", secondary_notes="SecondaryNotes"))
+    app.contact.create(Contact(first_name="testFirstName", middle_name="testMiddleName", last_name="testLastName", nick_name="testNickName", title="testTitle", company="testCompany", address="testAddress",
+                               home_telephone="testHomeTelephone", mobile_telephone="testMobileTelephone", work_telephone="testWorkTelephone", fax="testFax", e_mail="testE-mail", e_mail2="testE-Mail2", e_mail3="testE-mail3",
+                               homepage="testHomepage", bday="20", bmonth="May", byear="1992", aday="20", amonth="May", ayear="1998", secondary_address="testSecondaryAddress",
+                               secondary_home="testSecondaryHome", secondary_notes="testSecondaryNotes"))
     app.session.logout()
 
 

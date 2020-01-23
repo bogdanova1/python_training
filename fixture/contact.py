@@ -9,10 +9,38 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contacts_page()
         # fill contact form
+        self.fill(contact)
+        # submit contact creation
+        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        self.open_home_page()
+        # select first contact
+        wd.find_element_by_name("selected[]").click()
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+
+    def edit_first_contact(self,contact):
+        wd = self.app.wd
+        self.open_home_page()
+        # select first contact
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        # fill contact form
+        self.fill(contact)
+#        wd.find_element_by_name("firstname").click()
+#        wd.find_element_by_name("firstname").clear()
+#        wd.find_element_by_name("firstname").send_keys(contact.first_name)
+        # submit edition
+        wd.find_element_by_name("update").click()
+
+    def fill(self,contact):
+        wd = self.app.wd
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.first_name)
-        wd.find_element_by_name("theform").click()
         wd.find_element_by_name("middlename").click()
         wd.find_element_by_name("middlename").clear()
         wd.find_element_by_name("middlename").send_keys(contact.middle_name)
@@ -34,7 +62,6 @@ class ContactHelper:
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
         wd.find_element_by_name("home").send_keys(contact.home_telephone)
-        wd.find_element_by_name("theform").click()
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
         wd.find_element_by_name("mobile").send_keys(contact.mobile_telephone)
@@ -71,11 +98,11 @@ class ContactHelper:
         wd.find_element_by_xpath("(//option[@value='"+contact.aday+"'])[2]").click()
         wd.find_element_by_name("amonth").click()
         Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.amonth)
+#        wd.find_element_by_xpath("(//option[@value='"+contact.amonth+"'])[2]").click()
         wd.find_element_by_xpath("(//option[@value='"+contact.amonth+"'])[2]").click()
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys(contact.ayear)
-        wd.find_element_by_name("theform").click()
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys(contact.secondary_address)
@@ -85,30 +112,6 @@ class ContactHelper:
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.secondary_notes)
-        # submit contact creation
-        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
-
-    def delete_first_contact(self):
-        wd = self.app.wd
-        self.open_home_page()
-        # select first contact
-        wd.find_element_by_name("selected[]").click()
-        # submit deletion
-        wd.find_element_by_xpath("//input[@value='Delete']").click()
-        wd.switch_to.alert.accept()
-
-    def edit_first_contact(self):
-        wd = self.app.wd
-        self.open_home_page()
-        # select first contact
-        wd.find_element_by_name("selected[]").click()
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        # fill field firstname
-        text=wd.find_element_by_name("firstname").text
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").send_keys(text+'_2')
-        # submit edition
-        wd.find_element_by_name("update").click()
 
     def open_contacts_page(self):
         wd = self.app.wd
