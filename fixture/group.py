@@ -41,7 +41,7 @@ class GroupHelper:
         # select first group
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_name("edit").click()
-        # fill first fild of group form
+        # fill field group_name
         text = wd.find_element_by_name("group_name").text
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").send_keys(text+"_2")
