@@ -9,7 +9,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contacts_page()
         # fill contact form
-        self.fill(contact)
+        self.fill(contact, mode="create")
         # submit contact creation
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
@@ -29,14 +29,14 @@ class ContactHelper:
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         # fill contact form
-        self.fill(contact)
+        self.fill(contact, mode="edit")
 #        wd.find_element_by_name("firstname").click()
 #        wd.find_element_by_name("firstname").clear()
 #        wd.find_element_by_name("firstname").send_keys(contact.first_name)
         # submit edition
         wd.find_element_by_name("update").click()
 
-    def fill(self,contact):
+    def fill(self,contact, mode):
         wd = self.app.wd
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -98,8 +98,10 @@ class ContactHelper:
         wd.find_element_by_xpath("(//option[@value='"+contact.aday+"'])[2]").click()
         wd.find_element_by_name("amonth").click()
         Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.amonth)
-#        wd.find_element_by_xpath("(//option[@value='"+contact.amonth+"'])[2]").click()
-        wd.find_element_by_xpath("(//option[@value='"+contact.amonth+"'])[2]").click()
+        if mode == "edit":
+            wd.find_element_by_css_selector("option[value=\""+contact.amonth.lower()+"\"]").click()
+        else:
+            wd.find_element_by_xpath("(//option[@value='"+contact.amonth+"'])[2]").click()
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys(contact.ayear)
