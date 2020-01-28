@@ -13,27 +13,22 @@ class GroupHelper:
         # init group creation
         wd.find_element_by_name("new").click()
         # fill group form
-        self.fill(group)
+        self.fill_group_form(group)
         # submit group creation
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
 
-    def fill(self,group):
-        wd = self.app.wd
-        self.fill_group_form(group)
-
     def fill_group_form(self, group):
-        wd = self.app.wd
-        self.change_field_value("group_name", group.name)
-        self.change_field_value("group_header", group.header)
-        self.change_field_value("group_footer", group.footer)
+        self.app.change_field_value("group_name", group.name)
+        self.app.change_field_value("group_header", group.header)
+        self.app.change_field_value("group_footer", group.footer)
 
-    def change_field_value(self, field_name, text):
-        wd = self.app.wd
-        if text is not None:
-            wd.find_element_by_name(field_name).click()
-            wd.find_element_by_name(field_name).clear()
-            wd.find_element_by_name(field_name).send_keys(text)
+#    def change_field_value(self, field_name, text):
+#        wd = self.app.wd
+#        if text is not None:
+#            wd.find_element_by_name(field_name).click()
+#            wd.find_element_by_name(field_name).clear()
+#            wd.find_element_by_name(field_name).send_keys(text)
 
     def select_first_group(self):
         wd = self.app.wd
