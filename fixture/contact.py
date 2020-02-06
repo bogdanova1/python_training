@@ -1,4 +1,5 @@
 from selenium.webdriver.support.ui import Select
+from model.contact import Contact
 
 class ContactHelper:
 
@@ -7,7 +8,7 @@ class ContactHelper:
 
     def create(self, contact):
         wd = self.app.wd
-        self.open_contacts_page()
+        self.open_contact_page()
         # fill contact form
         self.fill_contact_form(contact, mode="create")
         # submit contact creation
@@ -15,7 +16,7 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        self.open_home_page()
+        self.open_contacts_page()
         # select first contact
         wd.find_element_by_name("selected[]").click()
         # submit deletion
@@ -24,7 +25,7 @@ class ContactHelper:
 
     def modify_first_contact(self,contact):
         wd = self.app.wd
-        self.open_home_page()
+        self.open_contacts_page()
         # select first contact
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
@@ -75,23 +76,23 @@ class ContactHelper:
         self.app.change_field_value("phone2", contact.secondary_home)
         self.app.change_field_value("notes", contact.secondary_notes)
 
-    def open_contacts_page(self):
+    def open_contact_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
-    def open_home_page(self):
+    def open_contacts_page(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("/addressbook") and len(wd.find_elements_by_name("add"))) > 0:
             wd.find_element_by_link_text("home").click()
 
     def count(self):
         wd = self.app.wd
-        self.open_home_page()
+        self.open_contacts_page()
         return len(wd.find_elements_by_name("selected[]"))
 
     def delete_all_contacts(self):
         wd = self.app.wd
-        self.open_home_page()
+        self.open_contacts_page()
         while self.count() > 0:
             # select first contact
             wd.find_element_by_name("selected[]").click()
@@ -99,3 +100,12 @@ class ContactHelper:
             wd.find_element_by_xpath("//input[@value='Delete']").click()
             wd.switch_to.alert.accept()
 
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.open_contacts_page()
+        contacts = []
+        for element in wd.find_elements_by_name('entry'):
+            cells = element.find_elements_by_tag_name("td")
+            id = element.find_element_by_name('selected[]').get_attribute('value')
+            contacts.append(Contact(first_name = cells[2].text, last_name = cells[1].text, id = id))
+        return contacts
