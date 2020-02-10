@@ -81,7 +81,7 @@ class ContactHelper:
             wd.find_element_by_name("amonth").click()
             Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.amonth)
             if mode == "edit":
-                wd.find_element_by_css_selector("option[value=\""+contact.amonth.lower()+"\"]").click()
+                wd.find_element_by_css_selector("option[value='"+contact.amonth.lower()+"']").click()
             else:
                 wd.find_element_by_xpath("(//option[@value='"+contact.amonth+"'])[2]").click()
         self.app.change_field_value("ayear", contact.ayear)
