@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
+import re
 
 class ContactHelper:
 
@@ -8,7 +9,7 @@ class ContactHelper:
 
     def create(self, contact):
         wd = self.app.wd
-        self.open_contact_page()
+        wd.find_element_by_link_text("add new").click()
         # fill contact form
         self.fill_contact_form(contact, mode="create")
         # submit contact creation
@@ -49,16 +50,16 @@ class ContactHelper:
 
     def fill_contact_form(self, contact, mode):
         wd = self.app.wd
-        self.app.change_field_value("firstname", contact.first_name)
+        self.app.change_field_value("firstname", contact.firstname)
         self.app.change_field_value("middlename", contact.middle_name)
-        self.app.change_field_value("lastname", contact.last_name)
+        self.app.change_field_value("lastname", contact.lastname)
         self.app.change_field_value("nickname", contact.nick_name)
         self.app.change_field_value("title", contact.title)
         self.app.change_field_value("company", contact.company)
         self.app.change_field_value("address", contact.address)
-        self.app.change_field_value("home", contact.home_telephone)
-        self.app.change_field_value("mobile", contact.mobile_telephone)
-        self.app.change_field_value("work", contact.work_telephone)
+        self.app.change_field_value("home", contact.homephone)
+        self.app.change_field_value("mobile", contact.mobilephone)
+        self.app.change_field_value("work", contact.workphone)
         self.app.change_field_value("fax", contact.fax)
         self.app.change_field_value("email", contact.e_mail)
         self.app.change_field_value("email2", contact.e_mail2)
@@ -86,16 +87,14 @@ class ContactHelper:
                 wd.find_element_by_xpath("(//option[@value='"+contact.amonth+"'])[2]").click()
         self.app.change_field_value("ayear", contact.ayear)
         self.app.change_field_value("address2", contact.secondary_address)
-        self.app.change_field_value("phone2", contact.secondary_home)
+        self.app.change_field_value("phone2", contact.secondaryphone)
         self.app.change_field_value("notes", contact.secondary_notes)
-
-    def open_contact_page(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
 
     def open_contacts_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("/addressbook") and len(wd.find_elements_by_name("add"))) > 0:
+        if not (wd.current_url.endswith("/addressbook") and len(
+#                wd.find_elements_by_name("add"))) > 0:
+                wd.find_elements_by_xpath("/html/body/div[1]/div[4]/form[2]/table/tbody/tr[1]/th[2]/a")) > 0):
             wd.find_element_by_link_text("home").click()
 
     def count(self):
@@ -121,8 +120,54 @@ class ContactHelper:
             wd = self.app.wd
             self.open_contacts_page()
             self.contact_cache = []
-            for element in wd.find_elements_by_name('entry'):
+#            for element in wd.find_elements_by_name('entry'):
+            for element in wd.find_elements_by_xpath('//tr[@name="entry"]'):
                 cells = element.find_elements_by_tag_name("td")
-                id = element.find_element_by_name('selected[]').get_attribute('value')
-                self.contact_cache.append(Contact(first_name = cells[2].text, last_name = cells[1].text, id = id))
+                firstname = cells[2].text
+                lastname = cells[1].text
+#                id = element.find_element_by_name('selected[]').get_attribute('value')
+                id = element.find_element_by_tag_name('input').get_attribute('value')
+                all_phones = cells[5].text.splitlines()
+                self.contact_cache.append(Contact(firstname= firstname, lastname= lastname, id = id,
+                                                  homephone=all_phones[0], mobilephone=all_phones[1],
+                                                  workphone=all_phones[2], secondaryphone=all_phones[3] ))
         return list(self.contact_cache)
+
+    def open_contact_to_edit_by_index(self, index):
+        wd = self.app.wd
+        self.app.open_home_page()
+        row = wd.find_elements_by_name('entry')[index]
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_elements_by_tag_name("a")[0].click()
+
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        self.app.open_home_page()
+        row = wd.find_elements_by_name('entry')[index]
+        cell = row.find_elements_by_tag_name("td")[6]
+        cell.find_elements_by_tag_name("a")[0].click()
+
+    def get_contact_info_from_edit_page(self, index):
+        wd = self.app.wd
+        self.open_contact_to_edit_by_index(index)
+        firstname = wd.find_element_by_name('firstname').get_attribute("value")
+        lastname = wd.find_element_by_name('lastname').get_attribute("value")
+        id = wd.find_element_by_name('id').get_attribute("value")
+        homephone = wd.find_element_by_name('home').get_attribute("value")
+        workphone = wd.find_element_by_name('work').get_attribute("value")
+        mobilephone = wd.find_element_by_name('mobile').get_attribute("value")
+        secondaryphone = wd.find_element_by_name('phone2').get_attribute("value")
+        return Contact(firstname=firstname, lastname=lastname, id=id,
+                       homephone=homephone, workphone=workphone,
+                       mobilephone=mobilephone, secondaryphone=secondaryphone)
+
+    def get_from_view_page (self, index):
+        wd = self.app.wd
+        self.open_contact_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        homephone=re.search("H: (.*)", text).group(1)
+        workphone=re.search("W: (.*)", text).group(1)
+        mobilephone=re.search("M: (.*)", text).group(1)
+        secondaryphone=re.search("P: (.*)", text).group(1)
+        return Contact(homephone=homephone, workphone=workphone,
+                       mobilephone=mobilephone, secondaryphone=secondaryphone)
