@@ -4,15 +4,15 @@ from random import randrange
 
 def test_modify_contact_first_name(app):
     if app.contact.count() == 0:
-        app.contact.create(Contact(firstname="testFirstName", middle_name="testMiddleName", lastname="testLastName",
-                                   nick_name="testNickName", title="testTitle", company="testCompany",
+        app.contact.create(Contact(firstname="testFirstName", middlename="testMiddleName", lastname="testLastName",
+                                   nickname="testNickName", title="testTitle", company="testCompany",
                                    address="testAddress",
                                    homephone="testHomeTelephone", mobilephone="testMobileTelephone",
                                    workphone="testWorkTelephone", fax="testFax", email="testE-mail",
                                    email2="testE-Mail2", email3="testE-mail3",
                                    homepage="testHomepage", bday="20", bmonth="May", byear="1992", aday="20",
-                                   amonth="May", ayear="1998", secondary_address="testSecondaryAddress",
-                                   secondary_home="testSecondaryHome", secondary_notes="testSecondaryNotes"))
+                                   amonth="May", ayear="1998", secondaryaddress="testSecondaryAddress",
+                                   secondaryhome="testSecondaryHome", secondarynotes="testSecondaryNotes"))
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
     contact = Contact(firstname="NewFirstName3", lastname="NewLastName3")
@@ -28,19 +28,19 @@ def test_modify_contact_first_name(app):
 
 # def test_modify_contact(app):
 #     if app.contact.count() == 0:
-#         app.contact.create(Contact(firstname="testFirstName", middle_name="testMiddleName", last_name="testLastName",
-#                                    nick_name="testNickName", title="testTitle", company="testCompany",
+#         app.contact.create(Contact(firstname="testFirstName", middlename="testMiddleName", last_name="testLastName",
+#                                    nickname="testNickName", title="testTitle", company="testCompany",
 #                                    address="testAddress",
 #                                    homephone="testHomeTelephone", mobilephone="testMobileTelephone",
 #                                    workphone="testWorkTelephone", fax="testFax", email="testE-mail",
 #                                    email2="testE-Mail2", email3="testE-mail3",
 #                                    homepage="testHomepage", bday="20", bmonth="May", byear="1992", aday="20",
-#                                    amonth="May", ayear="1998", secondary_address="testSecondaryAddress",
-#                                    secondary_home="testSecondaryHome", secondary_notes="testSecondaryNotes"))
+#                                    amonth="May", ayear="1998", secondaryaddress="testSecondaryAddress",
+#                                    secondary_home="testSecondaryHome", secondarynotes="testSecondaryNotes"))
 #
-#     app.contact.modify_first_contact(Contact(middle_name="NewMiddleName"
+#     app.contact.modify_first_contact(Contact(middlename="NewMiddleName"
 #                                              ,last_name="NewLastName"
-#                                              ,nick_name="NewNickName"
+#                                              ,nickname="NewNickName"
 #                                              ,title="NewTitle",company="NewCompany"
 #                                              , address="NewAddress"
 #                                              ,homephone="NewHomeTelephone"
@@ -57,9 +57,9 @@ def test_modify_contact_first_name(app):
 #                                              ,aday="20"
 #                                              ,amonth="May"
 #                                              ,ayear="1992"
-#                                              ,secondary_address="NewSecondaryAddress"
+#                                              ,secondaryaddress="NewSecondaryAddress"
 #                                              ,secondary_home="NewSecondaryHome"
-#                                              ,secondary_notes="NewSecondaryNotes"))
+#                                              ,secondarynotes="NewSecondaryNotes"))
 
 #def test_modify_contact_middle_name(app):
 #    app.contact.modify_first_contact(Contact(last_name="NewMiddleName"))
@@ -70,7 +70,7 @@ def test_modify_contact_first_name(app):
 
 
 #def test_modify_contact_nick_name(app):
-#    app.contact.modify_first_contact(Contact(nick_name="NewNickName"))
+#    app.contact.modify_first_contact(Contact(nickname="NewNickName"))
 
 
 #def test_modify_contact_title(app):
@@ -142,7 +142,7 @@ def test_modify_contact_first_name(app):
 
 
 #def test_modify_contact_secondary_address(app):
-#    app.contact.modify_first_contact(Contact(secondary_address="NewSecondaryAddress"))
+#    app.contact.modify_first_contact(Contact(secondaryaddress="NewSecondaryAddress"))
 
 
 #def test_modify_contact_secondary_secondary_home(app):
@@ -150,4 +150,4 @@ def test_modify_contact_first_name(app):
 
 
 #def test_modify_contact_secondary_secondary_notes(app):
-#    app.contact.modify_first_contact(Contact(secondary_notes="NewSecondaryNotes"))
+#    app.contact.modify_first_contact(Contact(secondarynotes="NewSecondaryNotes"))

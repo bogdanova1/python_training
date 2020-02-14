@@ -3,14 +3,14 @@ from sys import maxsize
 
 class Contact:
 
-    def __init__(self, firstname = None, middle_name = None, lastname = None, nick_name = None, title = None, company = None, address = None,
+    def __init__(self, firstname = None, middlename = None, lastname = None, nickname = None, title = None, company = None, address = None,
                  homephone = None, mobilephone = None, workphone = None, fax = None, email = None, email2 = None, email3 = None,
-                 homepage = None, bday = None, bmonth = None, byear = None, aday = None, amonth = None, ayear = None, secondary_address = None,
-                 secondary_notes = None, secondaryphone = None, id = None, all_phones_from_home_page=None, all_emails_from_home_page=None):
+                 homepage = None, bday = None, bmonth = None, byear = None, aday = None, amonth = None, ayear = None, secondaryaddress = None,
+                 secondarynotes = None, secondaryphone = None, id = None, all_phones_from_home_page=None, all_emails_from_home_page=None):
         self.firstname = firstname
-        self.middle_name = middle_name
+        self.middlename = middlename
         self.lastname = lastname
-        self.nick_name = nick_name
+        self.nickname = nickname
         self.title = title
         self.company = company
         self.address = address
@@ -28,8 +28,8 @@ class Contact:
         self.aday = aday
         self.amonth = amonth
         self.ayear = ayear
-        self.secondary_address = secondary_address
-        self.secondary_notes = secondary_notes
+        self.secondaryaddress = secondaryaddress
+        self.secondarynotes = secondarynotes
         self.secondaryphone = secondaryphone
         self.all_phones_from_home_page = all_phones_from_home_page
         self.all_emails_from_home_page = all_emails_from_home_page

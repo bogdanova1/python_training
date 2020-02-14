@@ -51,9 +51,9 @@ class ContactHelper:
     def fill_contact_form(self, contact, mode):
         wd = self.app.wd
         self.app.change_field_value("firstname", contact.firstname)
-        self.app.change_field_value("middlename", contact.middle_name)
+        self.app.change_field_value("middlename", contact.middlename)
         self.app.change_field_value("lastname", contact.lastname)
-        self.app.change_field_value("nickname", contact.nick_name)
+        self.app.change_field_value("nickname", contact.nickname)
         self.app.change_field_value("title", contact.title)
         self.app.change_field_value("company", contact.company)
         self.app.change_field_value("address", contact.address)
@@ -86,9 +86,9 @@ class ContactHelper:
             else:
                 wd.find_element_by_xpath("(//option[@value='"+contact.amonth+"'])[2]").click()
         self.app.change_field_value("ayear", contact.ayear)
-        self.app.change_field_value("address2", contact.secondary_address)
+        self.app.change_field_value("address2", contact.secondaryaddress)
         self.app.change_field_value("phone2", contact.secondaryphone)
-        self.app.change_field_value("notes", contact.secondary_notes)
+        self.app.change_field_value("notes", contact.secondarynotes)
 
     def open_contacts_page(self):
         wd = self.app.wd
@@ -100,6 +100,7 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         self.open_contacts_page()
+#        wd.implicitly_wait(3)
         return len(wd.find_elements_by_name("selected[]"))
 
     def delete_all_contacts(self):
