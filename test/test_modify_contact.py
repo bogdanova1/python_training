@@ -8,8 +8,8 @@ def test_modify_contact_first_name(app):
                                    nick_name="testNickName", title="testTitle", company="testCompany",
                                    address="testAddress",
                                    homephone="testHomeTelephone", mobilephone="testMobileTelephone",
-                                   workphone="testWorkTelephone", fax="testFax", e_mail="testE-mail",
-                                   e_mail2="testE-Mail2", e_mail3="testE-mail3",
+                                   workphone="testWorkTelephone", fax="testFax", email="testE-mail",
+                                   email2="testE-Mail2", email3="testE-mail3",
                                    homepage="testHomepage", bday="20", bmonth="May", byear="1992", aday="20",
                                    amonth="May", ayear="1998", secondary_address="testSecondaryAddress",
                                    secondary_home="testSecondaryHome", secondary_notes="testSecondaryNotes"))
@@ -32,8 +32,8 @@ def test_modify_contact_first_name(app):
 #                                    nick_name="testNickName", title="testTitle", company="testCompany",
 #                                    address="testAddress",
 #                                    homephone="testHomeTelephone", mobilephone="testMobileTelephone",
-#                                    workphone="testWorkTelephone", fax="testFax", e_mail="testE-mail",
-#                                    e_mail2="testE-Mail2", e_mail3="testE-mail3",
+#                                    workphone="testWorkTelephone", fax="testFax", email="testE-mail",
+#                                    email2="testE-Mail2", email3="testE-mail3",
 #                                    homepage="testHomepage", bday="20", bmonth="May", byear="1992", aday="20",
 #                                    amonth="May", ayear="1998", secondary_address="testSecondaryAddress",
 #                                    secondary_home="testSecondaryHome", secondary_notes="testSecondaryNotes"))
@@ -47,9 +47,9 @@ def test_modify_contact_first_name(app):
 #                                              ,mobilephone="NewMobileTelephone"
 #                                              ,workphone="NewWorkTelephone"
 #                                              ,fax="NewFax"
-#                                              ,e_mail="NewE-mail"
-#                                              ,e_mail2="NewE-mail2"
-#                                              ,e_mail3="NewE-mail3"
+#                                              ,email="NewE-mail"
+#                                              ,email2="NewE-mail2"
+#                                              ,email3="NewE-mail3"
 #                                              ,homepage="NewHomepage"
 #                                              ,bday="20"
 #                                              ,bmonth="May"
@@ -102,15 +102,15 @@ def test_modify_contact_first_name(app):
 
 
 #def test_modify_contact_e_mail(app):
-#    app.contact.modify_first_contact(Contact(e_mail="NewE-mail"))
+#    app.contact.modify_first_contact(Contact(email="NewE-mail"))
 
 
 #def test_modify_contact_e_mail2(app):
-#    app.contact.modify_first_contact(Contact(e_mail2="NewE-Mail2"))
+#    app.contact.modify_first_contact(Contact(email2="NewE-Mail2"))
 
 
 #def test_modify_contact_e_mail3(app):
-#    app.contact.modify_first_contact(Contact(e_mail3="NewE-Mail3"))
+#    app.contact.modify_first_contact(Contact(email3="NewE-Mail3"))
 
 
 #def test_modify_contact_homepage(app):

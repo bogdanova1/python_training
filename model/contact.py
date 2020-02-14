@@ -4,9 +4,9 @@ from sys import maxsize
 class Contact:
 
     def __init__(self, firstname = None, middle_name = None, lastname = None, nick_name = None, title = None, company = None, address = None,
-                 homephone = None, mobilephone = None, workphone = None, fax = None, e_mail = None, e_mail2 = None, e_mail3 = None,
+                 homephone = None, mobilephone = None, workphone = None, fax = None, email = None, email2 = None, email3 = None,
                  homepage = None, bday = None, bmonth = None, byear = None, aday = None, amonth = None, ayear = None, secondary_address = None,
-                 secondary_notes = None, secondaryphone = None, id = None, all_phones_from_home_page=None):
+                 secondary_notes = None, secondaryphone = None, id = None, all_phones_from_home_page=None, all_emails_from_home_page=None):
         self.firstname = firstname
         self.middle_name = middle_name
         self.lastname = lastname
@@ -18,9 +18,9 @@ class Contact:
         self.mobilephone = mobilephone
         self.workphone = workphone
         self.fax = fax
-        self.e_mail = e_mail
-        self.e_mail2 = e_mail2
-        self.e_mail3 = e_mail3
+        self.email = email
+        self.email2 = email2
+        self.email3 = email3
         self.homepage = homepage
         self.bday = bday
         self.bmonth = bmonth
@@ -32,6 +32,7 @@ class Contact:
         self.secondary_notes = secondary_notes
         self.secondaryphone = secondaryphone
         self.all_phones_from_home_page = all_phones_from_home_page
+        self.all_emails_from_home_page = all_emails_from_home_page
         self.id = id
 
     def __repr__(self):
