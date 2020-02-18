@@ -177,8 +177,13 @@ class ContactHelper:
         workphone= self.searchwithNone("W", text)
         mobilephone=self.searchwithNone("M", text)
         secondaryphone=self.searchwithNone("P", text)
+        email_list = []
+        for element in wd.find_elements_by_xpath("//a[contains(@href, 'mailto:')]"):
+            email_list.append(element.text)
+        all_emails_from_view_page = "\n".join(map(lambda x: re.sub(" ","",x),email_list))
         return Contact(homephone=homephone, workphone=workphone,
-                       mobilephone=mobilephone, secondaryphone=secondaryphone)
+                       mobilephone=mobilephone, secondaryphone=secondaryphone,
+                       all_emails_from_view_page=all_emails_from_view_page)
 
     def searchwithNone(self, pref, text):
         if re.search(pref, text) is None :
