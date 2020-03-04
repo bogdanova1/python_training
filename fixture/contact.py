@@ -61,6 +61,23 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         self.contact_cache = None
 
+    def modify_contact_by_id(self, new_contact_data):
+        wd = self.app.wd
+        self.open_contacts_page()
+        # select first contact
+#        self.select_contact_by_id(new_contact_data.id)
+        for element in wd.find_elements_by_xpath('//tr[@name="entry"]'):
+            cells = element.find_elements_by_tag_name("td")
+            if new_contact_data.id == element.find_element_by_tag_name('input').get_attribute('value'):
+                cells[0].click()
+                cells[7].click()
+                break
+        # fill contact form
+        self.fill_contact_form(new_contact_data, mode="edit")
+        # submit edition
+        wd.find_element_by_name("update").click()
+        self.contact_cache = None
+
     def fill_contact_form(self, contact, mode):
         wd = self.app.wd
         self.app.change_field_value("firstname", contact.firstname)
