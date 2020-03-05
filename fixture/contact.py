@@ -66,12 +66,14 @@ class ContactHelper:
         self.open_contacts_page()
         # select first contact
 #        self.select_contact_by_id(new_contact_data.id)
-        for element in wd.find_elements_by_xpath('//tr[@name="entry"]'):
-            cells = element.find_elements_by_tag_name("td")
-            if new_contact_data.id == element.find_element_by_tag_name('input').get_attribute('value'):
-                cells[0].click()
-                cells[7].click()
-                break
+
+#         for element in wd.find_elements_by_xpath('//tr[@name="entry"]'):
+#             cells = element.find_elements_by_tag_name("td")
+#             if new_contact_data.id == element.find_element_by_tag_name('input').get_attribute('value'):
+#                 cells[0].click()
+#                 cells[7].click()
+#                 break
+        wd.find_element_by_xpath("//a[@href='edit.php?id=%s']" % new_contact_data.id ).click()
         # fill contact form
         self.fill_contact_form(new_contact_data, mode="edit")
         # submit edition
