@@ -80,6 +80,26 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         self.contact_cache = None
 
+    def add_contact_to_group(self, contact, group):
+        wd = self.app.wd
+        self.open_contacts_page()
+        self.select_contact_by_id(contact.id)
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_name("to_group")).select_by_visible_text(group.name)
+        wd.find_element_by_xpath("(//option[@value='%s'])[2]"%group.id).click()
+        wd.find_element_by_css_selector("select[name=\"to_group\"] > option[value=\"%s\"]"%group.id).click()
+        wd.find_element_by_name("add").click()
+#       wd.find_element_by_link_text("home").click()
+
+    def remove_contact_from_group(self, contact, group):
+        wd = self.app.wd
+        self.open_contacts_page()
+        wd.find_element_by_name("group").click()
+        Select(wd.find_element_by_name("group")).select_by_visible_text(group.name)
+        wd.find_element_by_xpath("//option[@value='%s']"%group.id).click()
+        self.select_contact_by_id(contact.id)
+        wd.find_element_by_name("remove").click()
+
     def fill_contact_form(self, contact, mode):
         wd = self.app.wd
         self.app.change_field_value("firstname", contact.firstname)

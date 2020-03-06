@@ -15,7 +15,7 @@ from fixture.group import Group
 db2 = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 
 try:
-    l = db2.get_contacts_not_in_group(Group(id="311"))
+    l = db2.get_contacts_in_group(Group(id="332"))
     for item in l:
         print(item)
     print(len(l))
