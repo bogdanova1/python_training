@@ -40,6 +40,11 @@ class ORMFixture:
 #        with db_session:
         return self.convert_groups_to_model(list(select(g for g in ORMFixture.ORMGroup)))
 
+
+    @db_session
+    def get_group(self,id):
+        return self.convert_groups_to_model(list(select(g for g in ORMFixture.ORMGroup if g.id == id)))
+
     def convert_contacts_to_model(self, contacts):
         def convert(contact):
             return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname)

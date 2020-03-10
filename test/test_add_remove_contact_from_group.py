@@ -5,7 +5,7 @@ import random
 
 db2 = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 
-def test_add_remove_contact_from_group(app, db, check_ui):
+def test_remove_contact_from_group(app, db, check_ui):
     if len(db.get_group_list()) == 0:
         app.group.create(Group(name = "test"))
     if len(db.get_contact_list()) == 0:
@@ -20,7 +20,7 @@ def test_add_remove_contact_from_group(app, db, check_ui):
                                    secondaryhome="testSecondaryHome", secondarynotes="testSecondaryNotes"))
     contacts = db.get_contact_list()
     contact = random.choice(contacts)
-    index = contacts.index(contact)
+ #   index = contacts.index(contact)
     groups = db.get_group_list()
     group = random.choice(groups)
     app.contact.add_contact_to_group(contact, group)
