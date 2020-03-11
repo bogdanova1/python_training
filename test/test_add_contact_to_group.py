@@ -5,9 +5,10 @@ import random
 
 db2 = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 
+
 def test_add_remove_contact_from_group(app, db, check_ui):
     if len(db.get_group_list()) == 0:
-        app.group.create(Group(name = "test"))
+        app.group.create(Group(name="test"))
     if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="testFirstName", middlename="testMiddleName", lastname="testLastName",
                                    nickname="testNickName", title="testTitle", company="testCompany",
@@ -24,7 +25,7 @@ def test_add_remove_contact_from_group(app, db, check_ui):
     for g in groups:
         try:
             l = db2.get_contacts_not_in_group(Group(id=g.id))
-            if len(l)>0:
+            if len(l) > 0:
                 contact = random.choice(l)
                 group = g
                 break
