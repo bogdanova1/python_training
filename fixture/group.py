@@ -19,7 +19,7 @@ class GroupHelper:
         self.group_cache = None
 
     def fill_group_form(self, group):
-        self.app.change_field_value("group_name", group.name)
+
         self.app.change_field_value("group_header", group.header)
         self.app.change_field_value("group_footer", group.footer)
 
@@ -91,6 +91,7 @@ class GroupHelper:
     def select_group_by_id(self, id):
         wd = self.app.wd
         wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
 
     def open_groups_page(self):
         wd = self.app.wd
